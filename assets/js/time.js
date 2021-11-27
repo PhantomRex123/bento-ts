@@ -1,0 +1,45 @@
+"use strict";
+// ┌┬┐┬┌┬┐┌─┐
+//  │ ││││├┤
+//  ┴ ┴┴ ┴└─┘
+/* global CONFIG */
+// Clock function
+function displayClock() {
+    const monthNames = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+    ];
+    // Get clock elements
+    const d = new Date();
+    const mm = monthNames[d.getMonth()];
+    const dd = d.getDate();
+    const min = `0${d.getMinutes()}`.slice(-2);
+    let hh = d.getHours();
+    let ampm = "";
+    // Hour format
+    if (CONFIG.twelveHourFormat) {
+        ampm = hh >= 12 ? " pm" : " am";
+        hh %= 12;
+        hh = hh || 12;
+    }
+    // Display clock elements
+    document.getElementById("hour").innerText = hh.toString();
+    document.getElementById("separator").innerHTML = " : ";
+    document.getElementById("minutes").innerText = min + ampm;
+    document.getElementById("month").innerText = mm;
+    document.getElementById("day").innerText = dd.toString();
+    setTimeout(displayClock, 1000);
+}
+document.addEventListener("DOMContentLoaded", () => {
+    displayClock();
+});
